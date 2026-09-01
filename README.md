@@ -39,78 +39,50 @@ STEP-5: Combine all these groups to get the complete cipher text.
 ## PROGRAM 
 
 ```
-#include <stdio.h>
-#include <string.h>
 
-int main()
-{
-    int key[3][3] = {
-        {6, 24, 1},
-        {13, 16, 10},
-        {20, 17, 15}
-    };
 
-    int inverseKey[3][3] = {
-        {8, 5, 10},
-        {21, 8, 21},
-        {21, 12, 8}
-    };
-
-    char plaintext[20];
-    int plain[3], cipher[3], decrypt[3];
-    int i, j, sum;
-
-    printf("Enter 3-letter Plain Text (Uppercase): ");
-    scanf("%s", plaintext);
-    printf("\nPlain Text Values: ");
-    for(i = 0; i < 3; i++)
-    {
-        plain[i] = plaintext[i] - 'A';
-        printf("%d ", plain[i]);
-    }
-
-    for(i = 0; i < 3; i++)
-    {
-        sum = 0;
-        for(j = 0; j < 3; j++)
-        {
-            sum += key[i][j] * plain[j];
-        }
-        cipher[i] = sum % 26;
-    }
-
-    
-    printf("\nEncrypted Text: ");
-    for(i = 0; i < 3; i++)
-    {
-        printf("%c", cipher[i] + 'A');
-    }
-
-  
-    for(i = 0; i < 3; i++)
-    {
-        sum = 0;
-        for(j = 0; j < 3; j++)
-        {
-            sum += inverseKey[i][j] * cipher[j];
-        }
-        decrypt[i] = sum % 26;
-    }
-
-    // Display Decrypted Text
-    printf("\nDecrypted Text: ");
-    for(i = 0; i < 3; i++)
-    {
-        printf("%c", decrypt[i] + 'A');
-    }
-
-    return 0;
+#include <stdio.h> 
+#include <string.h> 
+#include <ctype.h> 
+int main() 
+{ 
+    char plain[10],cipher[10]; 
+    int key,i,length; 
+    int result; 
+    printf(" Enter the plain text:"); 
+    scanf("%s", plain); 
+    printf(" Enter the key value:"); 
+    scanf("%d", &key); 
+    printf(" Plain Text: %s", plain); 
+    printf("\n Encypted Text:"); 
+    for(i=0, length = strlen(plain); i<length; i++) 
+    { 
+        cipher[i]=plain[i] + key; 
+        if (isupper(plain[i]) && (cipher[i] > 'Z')) 
+        cipher[i] = cipher[i] - 26; 
+        if (islower(plain[i]) && (cipher[i] > 'z')) 
+        cipher[i] = cipher[i] - 26; 
+        printf("%c", cipher[i]); 
+    } 
+    printf("\n After Deryption: "); 
+    for(i=0;i<length;i++) 
+    { 
+        plain[i]=cipher[i]-key; 
+        if(isupper(cipher[i])&&(plain[i]<'A')) 
+        plain[i]=plain[i]+26; 
+        if(islower(cipher[i])&&(plain[i]<'a')) 
+        plain[i]=plain[i]+26; 
+        printf("%c",plain[i]); 
+    } 
 }
 ```
 
 ## OUTPUT
 
-<img width="587" height="255" alt="image" src="https://github.com/user-attachments/assets/085d893f-40d9-42fd-b123-25d3ee7536ac" />
+
+<img width="548" height="297" alt="image" src="https://github.com/user-attachments/assets/eb947771-938d-4b9d-a914-7a1168807643" />
+
+
 
 
 ## RESULT
